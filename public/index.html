@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Todo list</title>
+  <script src="angular/angular.js"></script>
+</head>
+<body>
+  <div ng-app="todo">
+    <div ng-controller="todoCtrl">
+      <input ng-model="newTodo">
+      <button ng-click="addApple()">add Todo</button>
+      <todo-list todos="myTodos"></todo-list>
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
