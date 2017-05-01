@@ -12,5 +12,5 @@ var listSchema = new mongoose.Schema({
   task: {type: String, required: true, index: {unique: true}}
 })
 
-var List = mongoose.model('List', listSchema);
-module.exports = List;
+var Todo = mongoose.model('Todo', listSchema);
+module.exports = Todo;
