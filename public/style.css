@@ -5,3 +5,16 @@ body{
     background-size: 70%;
     float: right;
 }
+
+
+h1 {
+  font: bold 140% 'News Cycle', arial;
+  color: #0196E8;
+  font-size: 300%
+}
+
+.list {
+  font: 140% 'News Cycle', arial;
+  color: #03517b;
+  font-size: 100%
+}

@@ -82,13 +82,15 @@ angular.module('todo', [])
        }
       },
       template: `
-        <ul>
-          <li
-            ng-click="props.removeTodo($index)"
-            ng-repeat="todo in props.todos track by $index">
-            {{todo}}
-          </li>
-        </ul
+        <div class="list">
+          <ul>
+            <li
+              ng-click="props.removeTodo($index)"
+              ng-repeat="todo in props.todos track by $index">
+              {{todo}}
+            </li>
+          </ul
+        </div>
       `
     }
   })
