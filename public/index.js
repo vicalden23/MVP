@@ -1,8 +1,7 @@
 angular.module('todo', [])
-  .controller('todoCtrl', function($scope, $http) {
+  .controller('todoCtrl', function($scope, $http, $window) {
     $scope.myTodos = [];
-    $scope.responses = ['I love you!', 'You are amazing!', 'Great job, champ!'
-    ];
+    $scope.responses = ['I love you!', 'You are amazing!', 'Great job, champ!', 'You are one impressive human being.', 'You\'re the best!'];
 
     $http({
       method: 'GET',
@@ -30,6 +29,25 @@ angular.module('todo', [])
         $scope.newTodo = '';
         console.log(err);
       }
+    };
+
+    $scope.removeMessages = function() {
+      $window.location.reload();
+    };
+
+    $scope.shuffle = function(array) {
+      if(!array) {
+        array = $scope.myTodos;
+      }
+      var currentIndex = array.length, temporaryValue, randomIndex;
+      while(0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+      return array;
     }
 
     // $scope.removeFromList = function(index) {
@@ -59,13 +77,8 @@ angular.module('todo', [])
           }), function(rejection) {
             console.log(rejection.data)
           }
-          console.log('THIS IS THE INDEX', index);
           var generateRandomNumber = Math.floor(Math.random() * this.messages.length);
-          console.log(this.messages[generateRandomNumber]);
           this.todos.splice(index, 1, this.messages[generateRandomNumber]);
-          setTimeout(function(index) {
-            this.todos.splice(index, 1)
-          }, 2000).bind(this);
        }
       },
       template: `

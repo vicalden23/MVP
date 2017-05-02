@@ -2,14 +2,21 @@
 <html>
 <head>
   <title>Todo list</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
   <script src="angular/angular.js"></script>
 </head>
 <body>
+  <h1>You Can Do It!</h1>
   <div ng-app="todo">
     <div ng-controller="todoCtrl">
       <input ng-model="newTodo">
       <button ng-click="addTodo()">add Todo</button>
+      <button ng-click="removeMessages()">clear List</button>
+      <button ng-click="shuffle()">Shuffle</button>
       <todo-list messages="responses" todos="myTodos"></todo-list>
+    </div>
+    <div ng-controller="todontCtrl">
+
     </div>
   </div>
   <script src="index.js"></script>
