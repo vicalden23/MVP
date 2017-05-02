@@ -16,9 +16,14 @@
       <todo-list messages="responses" todos="myTodos"></todo-list>
     </div>
     <div ng-controller="todontCtrl">
-
+      <input ng-model="newTodont">
+      <button ng-click="addTodont()">add Todon't</button>
+      <button ng-click="removeMessages()">clear List</button>
+      <button ng-click="shuffle()">Shuffle</button>
+      <todont-list messages="responses" todonts="myTodonts"></todont-list>
     </div>
   </div>
   <script src="index.js"></script>
+  <script src="todont.js"></script>
 </body>
 </html>

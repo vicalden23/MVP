@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var Todo = require('./db/schema.js');
+var Todont = require('./db/schema.js');
 
 var app = express();
 
@@ -45,3 +46,26 @@ app.delete('/list', function(req, res) {
       res.status(204).send(req.body.task);
     })
 })
+
+app.get('/todont', function(req, res) {
+  Todont.find({}).exec(function(err, todonts) {
+    res.status(200).send(todonts);
+  })
+})
+
+app.post('/list', function(req, res) {
+  Todo.findOne({task: req.body.task})
+    .exec(function(err, todo) {
+      if (!todo) {
+        var newTodo = new Todo({
+          task: req.body.task
+        });
+        newTodo.save(function(err, newTodo) {
+          if (err) {
+            res.status(500).send(err);
+          }
+          res.status(201).send(newTodo);
+        })
+      }
+    });
+});
