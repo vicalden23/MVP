@@ -1,11 +1,11 @@
-angular.module('todo', [])
+angular.module('todo')
   .controller('todontCtrl', function($scope, $http, $window) {
     $scope.myTodonts = [];
     $scope.responses = ['I love you!', 'You are amazing!', 'Great job, champ!', 'You are one impressive human being.', 'You\'re the best!'];
 
     $http({
       method: 'GET',
-      url: 'http://127.0.0.1:2023/list',
+      url: 'http://127.0.0.1:2023/todont',
       headers: {'Content-Type':'application/x-www-form-urlencoded'}
     }).then(function successCallback(response) {
       for (var i = 0; i < response.data.length; i++) {
@@ -15,18 +15,18 @@ angular.module('todo', [])
       console.log(response);
     });
 
-    $scope.addTodo = function(newTodo) {
+    $scope.addTodont = function(newTodont) {
       var req = {
         method: 'POST',
-        url: 'http://127.0.0.1:2023/list',
+        url: 'http://127.0.0.1:2023/todont',
         headers: {'Content-Type':'application/json'},
-        data: {task: $scope.newTodo}
+        data: {task: $scope.newTodont}
       }
       $http(req).then(function(res) {
-        $scope.myTodos.push(res.data.task);
-        $scope.newTodo = '';
+        $scope.myTodonts.push(res.data.task);
+        $scope.newTodont = '';
       }), function(err) {
-        $scope.newTodo = '';
+        $scope.newTodont = '';
         console.log(err);
       }
     };
@@ -37,7 +37,7 @@ angular.module('todo', [])
 
     $scope.shuffle = function(array) {
       if(!array) {
-        array = $scope.myTodos;
+        array = $scope.myTodonts;
       }
       var currentIndex = array.length, temporaryValue, randomIndex;
       while(0 !== currentIndex) {
@@ -50,43 +50,39 @@ angular.module('todo', [])
       return array;
     }
 
-    // $scope.removeFromList = function(index) {
-    // }
-    //take remove todo out of the controller and add a second parameter $mytodos[index]
-
   })
-  .directive('todoList', function($http) {
+  .directive('todontList', function($http) {
     return {
       scope: {
-        todos: '<',
+        todonts: '<',
         messages: '<'
       },
       restrict: 'E',
       controllerAs: 'props',
       bindToController: true,
       controller: function() {
-        this.removeTodo = function(index) {
+        this.removeTodont = function(index) {
           $http({
             method: 'DELETE',
-            url: 'http://127.0.0.1:2023/list',
+            url: 'http://127.0.0.1:2023/todont',
             headers: {'Content-Type':'application/json'},
-            data: {task: this.todos[index]}
+            data: {task: this.todonts[index]}
           })
           .then(function(response) {
-            console.log("REMOVED TODO")
+            console.log("REMOVED TODONT")
           }), function(rejection) {
             console.log(rejection.data)
           }
           var generateRandomNumber = Math.floor(Math.random() * this.messages.length);
-          this.todos.splice(index, 1, this.messages[generateRandomNumber]);
+          this.todonts.splice(index, 1, this.messages[generateRandomNumber]);
        }
       },
       template: `
         <ul>
           <li
-            ng-click="props.removeTodo($index)"
-            ng-repeat="todo in props.todos track by $index">
-            {{todo}}
+            ng-click="props.removeTodont($index)"
+            ng-repeat="todont in props.todonts track by $index">
+            {{todont}}
           </li>
         </ul
       `

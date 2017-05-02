@@ -6,8 +6,8 @@
   <script src="angular/angular.js"></script>
 </head>
 <body>
-  <h1>You Can Do It!</h1>
   <div ng-app="todo">
+    <h1>You Can Do It!</h1>
     <div ng-controller="todoCtrl">
       <input ng-model="newTodo">
       <button ng-click="addTodo()">add Todo</button>
@@ -15,6 +15,7 @@
       <button ng-click="shuffle()">Shuffle</button>
       <todo-list messages="responses" todos="myTodos"></todo-list>
     </div>
+    <h1> You Can't Do It!</h1>
     <div ng-controller="todontCtrl">
       <input ng-model="newTodont">
       <button ng-click="addTodont()">add Todon't</button>
