@@ -34,3 +34,14 @@ app.post('/list', function(req, res) {
       }
     });
 });
+
+app.delete('/list', function(req, res) {
+  Todo.findOne({task: req.body.task})
+    .remove()
+    .exec(function(err, response) {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.status(204).send(req.body.task);
+    })
+})

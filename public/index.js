@@ -4,11 +4,11 @@ angular.module('todo', [])
 
     $http({
       method: 'GET',
-      url: 'http://127.0.0.1:8000/apple',
+      url: 'http://127.0.0.1:2023/list',
       headers: {'Content-Type':'application/x-www-form-urlencoded'}
     }).then(function successCallback(response) {
       for (var i = 0; i < response.data.length; i++) {
-        $scope.mytodos.push(response.data[i].color);
+        $scope.myTodos.push(response.data[i].task);
       }
     }, function errorCallback(response) {
       console.log(response);
@@ -17,17 +17,26 @@ angular.module('todo', [])
     $scope.addTodo = function(newTodo) {
       var req = {
         method: 'POST',
-        url: 'http://127.0.0.1:8000/apple',
+        url: 'http://127.0.0.1:2023/list',
         headers: {'Content-Type':'application/json'},
         data: {task: $scope.newTodo}
       }
       $http(req).then(function(res) {
         $scope.myTodos.push(res.data.task);
         $scope.newTodo = '';
-      }) function(err) {
+      }), function(err) {
         $scope.newTodo = '';
         console.log(err);
       }
+    }
+
+    $scope.removeTodo = function(todo) {
+      $http({
+        method: 'DELETE',
+        url: 'http://127.0.0.1:2023/list',
+        headers: {'Content-Type':'application/json'},
+        data: {task: todo}
+      })
     }
   })
   .directive('todoList', function() {
