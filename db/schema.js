@@ -19,5 +19,4 @@ var dontSchema = new mongoose.Schema({
 var Todo = mongoose.model('Todo', listSchema);
 var Todont = mongoose.model('Todont', dontSchema);
 
-module.exports = Todo;
-module.exports = Todont;
+module.exports = {Todo: Todo, Todont: Todont};

@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var Todo = require('./db/schema.js');
-var Todont = require('./db/schema.js');
+var Todo = require('./db/schema.js').Todo;
+var Todont = require('./db/schema.js').Todont;
 
 var app = express();
 
@@ -49,7 +49,7 @@ app.delete('/list', function(req, res) {
 })
 
 app.get('/todont', function(req, res) {
-  console.log("INSIDE OF TODONT GET")
+  console.log("INSIDE OF TODNT get")
   Todont.find({}).exec(function(err, todonts) {
     res.status(200).send(todonts);
   })

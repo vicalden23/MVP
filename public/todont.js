@@ -1,7 +1,7 @@
 angular.module('todo')
   .controller('todontCtrl', function($scope, $http, $window) {
     $scope.myTodonts = [];
-    $scope.responses = ['I love you!', 'You are amazing!', 'Great job, champ!', 'You are one impressive human being.', 'You\'re the best!'];
+    $scope.responses = ['I\'m so disappointed in you.', 'Why did you do that?', 'You should make better life decisions.', 'You let me down.', 'Just go home.'];
 
     $http({
       method: 'GET',
