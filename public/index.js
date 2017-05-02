@@ -30,16 +30,12 @@ angular.module('todo', [])
       }
     }
 
-    $scope.removeTodo = function(todo) {
-      $http({
-        method: 'DELETE',
-        url: 'http://127.0.0.1:2023/list',
-        headers: {'Content-Type':'application/json'},
-        data: {task: todo}
-      })
-    }
+    // $scope.removeFromList = function(index) {
+    // }
+    //take remove todo out of the controller and add a second parameter $mytodos[index]
+
   })
-  .directive('todoList', function() {
+  .directive('todoList', function($http) {
     return {
       scope: {
         todos: '<'
@@ -48,10 +44,26 @@ angular.module('todo', [])
       controllerAs: 'props',
       bindToController: true,
       controller: function() {
+        this.removeTodo = function(index) {
+          $http({
+            method: 'DELETE',
+            url: 'http://127.0.0.1:2023/list',
+            headers: {'Content-Type':'application/json'},
+            data: {task: this.todos[index]}
+          })
+          .then(function(response) {
+            console.log("REMOVED TODO")
+          }), function(rejection) {
+            console.log(rejection.data)
+          }
+        this.todos.splice(index, 1);
+        }
       },
       template: `
         <ul>
-          <li ng-repeat="todo in props.todos track by $index">
+          <li
+            ng-click="props.removeTodo($index)"
+            ng-repeat="todo in props.todos track by $index">
             {{todo}}
           </li>
         </ul
