@@ -1,6 +1,8 @@
 angular.module('todo', [])
   .controller('todoCtrl', function($scope, $http) {
     $scope.myTodos = [];
+    $scope.responses = ['I love you!', 'You are amazing!', 'Great job, champ!'
+    ];
 
     $http({
       method: 'GET',
@@ -38,7 +40,8 @@ angular.module('todo', [])
   .directive('todoList', function($http) {
     return {
       scope: {
-        todos: '<'
+        todos: '<',
+        messages: '<'
       },
       restrict: 'E',
       controllerAs: 'props',
@@ -56,8 +59,14 @@ angular.module('todo', [])
           }), function(rejection) {
             console.log(rejection.data)
           }
-        this.todos.splice(index, 1);
-        }
+          console.log('THIS IS THE INDEX', index);
+          var generateRandomNumber = Math.floor(Math.random() * this.messages.length);
+          console.log(this.messages[generateRandomNumber]);
+          this.todos.splice(index, 1, this.messages[generateRandomNumber]);
+          setTimeout(function(index) {
+            this.todos.splice(index, 1)
+          }, 2000).bind(this);
+       }
       },
       template: `
         <ul>
