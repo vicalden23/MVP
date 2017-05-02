@@ -9,11 +9,11 @@ db.once('open', function() {
 });
 
 var listSchema = new mongoose.Schema({
-  task: {type: String, required: true, index: {unique: true}};
+  task: {type: String, required: true, index: {unique: true}}
 })
 
 var dontSchema = new mongoose.Schema({
-  task: {type: String, required: true, index: {unique: true}};
+  task: {type: String, required: true, index: {unique: true}}
 })
 
 var Todo = mongoose.model('Todo', listSchema);

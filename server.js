@@ -14,6 +14,7 @@ app.listen(2023, function() {
 });
 
 app.get('/list', function(req, res) {
+
   Todo.find({}).exec(function(err, todos) {
     res.status(200).send(todos);
   })
@@ -48,24 +49,36 @@ app.delete('/list', function(req, res) {
 })
 
 app.get('/todont', function(req, res) {
+  console.log("INSIDE OF TODONT GET")
   Todont.find({}).exec(function(err, todonts) {
     res.status(200).send(todonts);
   })
 })
 
-app.post('/list', function(req, res) {
-  Todo.findOne({task: req.body.task})
-    .exec(function(err, todo) {
-      if (!todo) {
-        var newTodo = new Todo({
+app.post('/todont', function(req, res) {
+  Todont.findOne({task: req.body.task})
+    .exec(function(err, todont) {
+      if (!todont) {
+        var newTodont = new Todont({
           task: req.body.task
         });
-        newTodo.save(function(err, newTodo) {
+        newTodont.save(function(err, newTodont) {
           if (err) {
             res.status(500).send(err);
           }
-          res.status(201).send(newTodo);
+          res.status(201).send(newTodont);
         })
       }
     });
 });
+
+app.delete('/todont', function(req, res) {
+  Todont.findOne({task: req.body.task})
+    .remove()
+    .exec(function(err, response) {
+      if (err) {
+        res.status(500).send(err);
+      }
+      res.status(204).send(req.body.task);
+    })
+})
